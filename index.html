@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ========== SEO / SOCIAL PREVIEW (edit these) ========== -->
+  <title>MD FAIZAN — Full-Stack Developer</title>
+  <meta name="description" content="Portfolio of MD FAIZAN — MERN stack and Python developer building clean, fast web apps and games.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="MD FAIZAN — Full-Stack Developer">
+  <meta property="og:description" content="MERN stack and Python developer. Projects, games and a puzzle to play.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230a0a0a'/%3E%3Ctext x='50' y='67' font-size='54' text-anchor='middle' fill='%23ffffff' font-family='sans-serif' font-weight='700'%3EY%3C/text%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Applies saved theme before first paint (prevents flash) -->
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      try { d.dataset.theme = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+    })();
+  </script>
+
+  <!-- ========== STYLES (one file per concern) ========== -->
+  <link rel="stylesheet" href="css/base.css">~
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/about.css">
+  <link rel="stylesheet" href="css/projects.css">
+  <link rel="stylesheet" href="css/contact.css">
+  <link rel="stylesheet" href="css/puzzle.css">
+</head>
+<body>
+
+  <!-- ============================== NAV ============================== -->
+  <header class="nav" data-module="nav">
+    <div class="nav__progress" data-nav-progress></div>
+    <div class="container nav__inner">
+      <a href="#home" class="nav__logo" data-bind="profile.initials">YN</a>
+
+      <nav class="nav__links" id="nav-links" aria-label="Main">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a href="#play">Play</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button class="icon-btn" type="button" data-theme-toggle aria-label="Toggle light / dark theme">
+          <span class="theme-icon"></span>
+        </button>
+        <button class="icon-btn nav__burger" type="button" data-nav-toggle aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================== HERO ============================== -->
+    <section id="home" class="hero" data-module="hero">
+      <div class="hero__bg" aria-hidden="true">
+        <div class="hero__grid"></div>
+        <div class="hero__orbit"></div>
+      </div>
+
+      <div class="container hero__content">
+        <p class="eyebrow" data-reveal>
+          <span class="pulse-dot"></span>
+          <span data-bind="profile.availability">Available for work</span>
+        </p>
+
+        <h1 class="hero__title" data-split data-bind="profile.name">MD FAIZAN</h1>
+
+        <p class="hero__role" data-reveal style="--delay:500ms">
+          I build <span class="typed" data-typed></span><span class="caret" aria-hidden="true"></span>
+        </p>
+
+        <p class="hero__tagline" data-reveal style="--delay:650ms" data-bind="profile.tagline"></p>
+
+        <div class="hero__cta" data-reveal style="--delay:800ms">
+          <a class="btn btn--primary" href="#projects">View my work</a>
+          <a class="btn btn--ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+
+      <a class="hero__scroll" href="#about" aria-label="Scroll to About">
+        <span>Scroll</span><i></i>
+      </a>
+    </section>
+
+    <!-- ============================== ABOUT ============================== -->
+    <section id="about" class="section about" data-module="about">
+      <div class="container">
+        <div class="section__head" data-reveal>
+          <span class="section__index">01</span>
+          <h2>About me</h2>
+        </div>
+
+        <div class="about__intro">
+          <div class="about__text" data-about-text data-reveal></div>
+          <ul class="stats" data-about-stats></ul>
+        </div>
+
+        <div class="about__block">
+          <h3 class="about__sub" data-reveal>Languages I speak</h3>
+          <ul class="rings" data-about-languages></ul>
+        </div>
+
+        <div class="about__block">
+          <h3 class="about__sub" data-reveal>Technical skills</h3>
+          <div class="skill-groups" data-about-skills></div>
+        </div>
+
+        <div class="about__block">
+          <h3 class="about__sub" data-reveal>Tools I use</h3>
+          <ul class="chips" data-about-tools></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== PROJECTS ============================== -->
+    <section id="projects" class="section projects" data-module="projects">
+      <div class="container">
+        <div class="section__head" data-reveal>
+          <span class="section__index">02</span>
+          <h2>Projects</h2>
+        </div>
+
+        <div class="tabs" data-reveal>
+          <div class="tabs__list" role="tablist" aria-label="Project categories" data-projects-tabs>
+            <span class="tabs__indicator" data-projects-indicator></span>
+          </div>
+        </div>
+
+        <div class="cards" data-projects-grid role="tabpanel"></div>
+      </div>
+    </section>
+
+    <!-- ============================== CONTACT ============================== -->
+    <section id="contact" class="section contact" data-module="contact">
+      <div class="container contact__layout">
+        <div class="contact__info">
+          <div class="section__head" data-reveal>
+            <span class="section__index">03</span>
+            <h2>Let's talk</h2>
+          </div>
+          <p class="contact__lead" data-reveal data-bind="contact.lead"></p>
+          <ul class="contact__list" data-reveal>
+            <li><span>Email</span><a data-bind="profile.email" data-bind-mailto></a></li>
+            <li><span>Location</span><b data-bind="profile.location"></b></li>
+          </ul>
+        </div>
+
+        <form class="form" data-contact-form novalidate data-reveal style="--delay:150ms">
+          <div class="field">
+            <input id="cf-name" name="name" type="text" placeholder=" " autocomplete="name" required>
+            <label for="cf-name">Your name</label>
+            <span class="field__line"></span>
+            <small class="field__error" data-error-for="name"></small>
+          </div>
+          <div class="field">
+            <input id="cf-email" name="email" type="email" placeholder=" " autocomplete="email" required>
+            <label for="cf-email">Your email</label>
+            <span class="field__line"></span>
+            <small class="field__error" data-error-for="email"></small>
+          </div>
+          <div class="field">
+            <textarea id="cf-message" name="message" rows="4" placeholder=" " required></textarea>
+            <label for="cf-message">Your message</label>
+            <span class="field__line"></span>
+            <small class="field__error" data-error-for="message"></small>
+          </div>
+
+          <!-- spam trap: real people never fill this -->
+          <input class="hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <button class="btn btn--primary" type="submit" data-form-submit>Send message</button>
+          <p class="form__status" role="status" aria-live="polite" data-form-status></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============================== PUZZLE GAME ============================== -->
+    <section id="play" class="section puzzle" data-module="puzzle">
+      <div class="container">
+        <div class="section__head" data-reveal>
+          <span class="section__index">04</span>
+          <h2>Take a break</h2>
+          <p class="section__lead">Swap the tiles to rebuild the picture. Solve it and a new random one appears.</p>
+        </div>
+
+        <div class="puzzle__layout">
+          <div class="puzzle__stage" data-reveal>
+            <div class="puzzle__board" data-puzzle-board aria-label="Puzzle board"></div>
+            <div class="puzzle__peek" data-puzzle-peek aria-hidden="true"></div>
+
+            <div class="puzzle__overlay" data-puzzle-overlay aria-live="polite">
+              <div class="puzzle__result">
+                <span class="puzzle__emoji" data-result-emoji></span>
+                <div class="puzzle__text">
+                  <h3 data-result-title>Solved!</h3>
+                  <p data-result-meta></p>
+                </div>
+                <button class="btn btn--primary" type="button" data-puzzle-next>
+                  Next puzzle <span data-result-count></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <aside class="puzzle__panel" data-reveal style="--delay:150ms">
+            <p class="puzzle__category">Category <b data-puzzle-category>—</b></p>
+
+            <dl class="puzzle__stats">
+              <div><dt>Moves</dt><dd data-puzzle-moves>0</dd></div>
+              <div><dt>Time</dt><dd data-puzzle-time>00:00</dd></div>
+              <div><dt>Solved</dt><dd data-puzzle-solved>0</dd></div>
+            </dl>
+
+            <div class="progress" aria-hidden="true"><span data-puzzle-bar></span></div>
+            <p class="puzzle__progress-text"><span data-puzzle-placed>0</span> / <span data-puzzle-total>25</span> tiles in place</p>
+
+            <div class="puzzle__buttons">
+              <button class="btn btn--ghost" type="button" data-puzzle-peek-btn>Hold to peek</button>
+              <button class="btn btn--ghost" type="button" data-puzzle-hint>Hint</button>
+              <button class="btn btn--ghost" type="button" data-puzzle-skip>Skip</button>
+            </div>
+
+            <p class="puzzle__howto">Click a tile, then click another to swap them. Tiles that land in the right spot lock in place.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================== FOOTER ============================== -->
+  <footer class="footer" data-module="footer">
+    <div class="container footer__inner">
+      <p class="footer__copy">&copy; <span data-footer-year></span> <span data-bind="profile.name"></span>. Built with plain HTML, CSS &amp; JavaScript.</p>
+      <ul class="footer__socials" data-footer-socials></ul>
+      <a class="footer__top" href="#home">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- ============================== SCRIPTS ==============================
+       Classic scripts (no bundler, works by double-clicking index.html).
+       Order matters: core + data first, modules next, reveal LAST.
+       To remove a feature: delete its <section> above AND its <script> below.
+  ========================================================================= -->
+  <script src="js/core.js"></script>
+  <script src="js/data.js"></script>
+
+  <script src="js/modules/bind.js"></script>
+  <script src="js/modules/theme.js"></script>
+  <script src="js/modules/nav.js"></script>
+  <script src="js/modules/hero.js"></script>
+  <script src="js/modules/about.js"></script>
+  <script src="js/modules/projects.js"></script>
+  <script src="js/modules/contact.js"></script>
+  <script src="js/modules/footer.js"></script>
+
+  <script src="js/puzzle/library.js"></script>
+  <script src="js/puzzle/picker.js"></script>
+  <script src="js/puzzle/picture.js"></script>
+  <script src="js/puzzle/game.js"></script>
+
+  <script src="js/modules/reveal.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

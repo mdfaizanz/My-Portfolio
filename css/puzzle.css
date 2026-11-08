@@ -1,0 +1,94 @@
+/* =========================================================
+   PUZZLE — 5x5 swap game
+   Tiles are absolutely positioned and move with transforms,
+   so swaps animate smoothly.
+   ========================================================= */
+.puzzle__layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 3rem; align-items: start; }
+
+.puzzle__stage { position: relative; width: 100%; max-width: 600px; }
+
+.puzzle__board {
+  --n: 8;
+  position: relative; width: 100%; aspect-ratio: 1; overflow: hidden; user-select: none; -webkit-user-select: none;
+  border: 1px solid var(--line-strong); border-radius: var(--radius); background: var(--bg-soft);
+}
+
+.tile {
+  position: absolute; top: 0; left: 0; padding: 0; border: 0;
+  width: calc(100% / var(--n)); height: calc(100% / var(--n));
+  transform: translate(calc(var(--c) * 100%), calc(var(--r) * 100%));
+  background-color: var(--bg-soft);
+  background-image: var(--img);
+  background-size: calc(var(--n) * 100%) calc(var(--n) * 100%);
+  background-position:
+    calc(var(--tx) / (var(--n) - 1) * 100%)
+    calc(var(--ty) / (var(--n) - 1) * 100%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .5);
+  touch-action: manipulation;
+  transition: transform .45s var(--ease), filter .25s, box-shadow .3s;
+  animation: tile-in .5s both;
+  animation-delay: calc((var(--tx) + var(--ty)) * 22ms);
+}
+@keyframes tile-in { from { opacity: 0; } }
+
+.tile:not(.is-locked):hover { filter: brightness(1.18); cursor: pointer; }
+.tile.is-selected { z-index: 3; outline: 3px solid #fff; outline-offset: -3px; box-shadow: 0 0 0 2px #000 inset, 0 8px 24px rgba(0, 0, 0, .5); filter: brightness(1.15); }
+.tile.is-locked { box-shadow: none; cursor: default; }
+.tile.is-hint { z-index: 2; animation: hint .5s ease 3; }
+@keyframes hint { 50% { filter: brightness(1.8) contrast(1.1); outline: 3px solid #fff; outline-offset: -3px; } }
+
+/* Solved: a diagonal sweep of light across the finished picture */
+.puzzle__board.is-solved .tile { animation: sweep .7s ease both; animation-delay: calc((var(--tx) + var(--ty)) * 40ms); }
+@keyframes sweep { 40% { filter: brightness(1.6); } }
+
+/* Peek = full picture on top while the button is held */
+.puzzle__peek {
+  position: absolute; inset: 0; z-index: 4; border-radius: var(--radius); pointer-events: none;
+  background-size: cover; background-position: center; opacity: 0; transition: opacity .25s;
+}
+.puzzle__peek.is-on { opacity: 1; }
+
+/* Result card (slides up from the bottom, picture stays visible above it) */
+.puzzle__overlay {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; justify-content: center; padding: 1rem;
+  opacity: 0; transform: translateY(24px); pointer-events: none;
+  transition: opacity .5s, transform .6s var(--ease);
+}
+.puzzle__overlay.is-open { opacity: 1; transform: none; pointer-events: auto; }
+.puzzle__result {
+  display: flex; align-items: center; gap: 1rem; width: 100%; padding: 1rem 1.2rem;
+  border: 1px solid var(--fg); border-radius: var(--radius);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.puzzle__emoji { font-size: 2.4rem; line-height: 1; }
+.puzzle__result > div, .puzzle__result h3 { min-width: 0; }
+.puzzle__result h3 { font-size: 1.1rem; letter-spacing: -.02em; }
+.puzzle__result p { color: var(--muted); font-size: .85rem; }
+.puzzle__result .btn { margin-left: auto; padding: .65rem 1.1rem; font-size: .88rem; white-space: nowrap; }
+
+/* ---------- Side panel ---------- */
+.puzzle__category { margin-bottom: 1.4rem; font: .78rem var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.puzzle__category b { display: block; margin-top: .3rem; font: 700 1.8rem var(--font-sans); letter-spacing: -.03em; text-transform: none; color: var(--fg); }
+
+.puzzle__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-bottom: 1.4rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--line); overflow: hidden; }
+.puzzle__stats div { padding: .9rem 1rem; background: var(--bg); }
+.puzzle__stats dt { font: .68rem var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.puzzle__stats dd { margin-top: .2rem; font-size: 1.5rem; font-weight: 700; letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+
+.progress { height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; }
+.progress span { display: block; width: 100%; height: 100%; background: var(--fg); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease); }
+.puzzle__progress-text { margin-top: .6rem; font: .8rem var(--font-mono); color: var(--muted); }
+
+.puzzle__buttons { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.6rem; }
+.puzzle__buttons .btn { padding: .65rem 1.1rem; font-size: .88rem; -webkit-touch-callout: none; user-select: none; -webkit-user-select: none; touch-action: none; }
+.puzzle__howto { margin-top: 1.4rem; max-width: 36ch; color: var(--muted); font-size: .88rem; }
+
+@media (max-width: 900px) {
+  .puzzle__layout { grid-template-columns: 1fr; gap: 2rem; }
+  .puzzle__stage { max-width: 100%; }
+}
+@media (max-width: 520px) {
+  .puzzle__result { flex-wrap: wrap; }
+  .puzzle__result .btn { width: 100%; margin-left: 0; }
+}
